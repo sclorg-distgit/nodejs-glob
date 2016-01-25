@@ -2,18 +2,15 @@
 %{!?scl:%global pkg_name %{name}}
 %{?nodejs_find_provides_and_requires}
 
-Name:       %{?scl_prefix}nodejs-glob
-Version:    4.0.5
-Release:    1%{?dist}
-Summary:    A little globber for Node.js
-License:    BSD
-Group:      System Environment/Libraries
-URL:        https://github.com/isaacs/node-glob
-Source0:    http://registry.npmjs.org/glob/-/glob-%{version}.tgz
-BuildRoot:  %{_tmppath}/%{pkg_name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildArch:  noarch
-ExclusiveArch: %{nodejs_arches} noarch
-
+Name:		%{?scl_prefix}nodejs-glob
+Version:	5.0.15
+Release:        1%{?dist}
+Summary:	A little globber for Node.js
+License:	BSD
+URL:		https://github.com/isaacs/node-glob
+Source0:	http://registry.npmjs.org/glob/-/glob-%{version}.tgz
+BuildArch: 	noarch
+ExclusiveArch:	%{ix86} x86_64 %{arm} noarch
 BuildRequires:  %{?scl_prefix}nodejs-devel
 
 %description
@@ -27,22 +24,22 @@ to do its matching.
 #nothing to do
 
 %install
-rm -rf %{buildroot}
-
 mkdir -p %{buildroot}%{nodejs_sitelib}/glob
-cp -pr glob.js package.json %{buildroot}%{nodejs_sitelib}/glob
+cp -pr *.js package.json %{buildroot}%{nodejs_sitelib}/glob
 
 %nodejs_symlink_deps
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root,-)
 %{nodejs_sitelib}/glob
-%doc LICENSE README.md examples
+%doc LICENSE README.md
 
 %changelog
+* Mon Nov 30 2015 Tomas Hrcka <thrcka@redhat.com> - 5.0.15-1
+- New upstream release
+
+* Wed Jul 29 2015 Zuzana Svetlikova <zsvetlik@redhat.com> - 5.0.14-1
+- New upstream release
+
 * Fri Jan 09 2015 Tomas Hrcka <thrcka@redhat.com> - 4.0.5-1
 - New upstream release 4.0.5
 
